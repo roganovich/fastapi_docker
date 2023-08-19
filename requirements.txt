@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+typing
+sqlalchemy
+alembic
+#psycopg2
+databases
+asyncpg
+# dev
+pytest
+requests
