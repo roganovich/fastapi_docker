@@ -10,10 +10,11 @@ COPY ./requirements.txt /usr/src/requirements.txt
 # install dependencies
 RUN set -eux \
     && apk add --virtual .build-deps build-base \
-        libressl-dev libffi-dev gcc musl-dev python3-dev
-#postgresql-dev
+        libressl libffi gcc musl
+RUN apk add python3 libpq-dev
+RUN apk add postgresql
 # install packages
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip setuptools wheel
 # setuptools wheel
 RUN pip install -r /usr/src/requirements.txt
 RUN rm -rf /root/.cache/pip
