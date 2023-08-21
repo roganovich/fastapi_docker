@@ -9,18 +9,32 @@ async def get_posts(page: int):
     return await database.fetch_all(query)
 
 async def create_post(post: posts_schema.PostModel):
-    post.created_at = datetime.now()
-    query = posts_table.insert().values(
-        created_at=post.created_at, title=post.title, content=post.content
+    created_at = datetime.now()
+    query = (
+        posts_table.insert()
+        .values(
+            created_at=created_at,
+            title=post.title,
+            content=post.content
+        )
+        .returning(
+            posts_table.c.id,
+            posts_table.c.title,
+            posts_table.c.content,
+            posts_table.c.created_at,
+        )
     )
-    post_id = await database.execute(query)
-    post.id = post_id
-
-    return {"item":post}
+    post = await database.fetch_one(query)
+    post = dict(zip(post, post.values()))
+    return post
 
 async def get_post(post_id: int):
     query = posts_table.select().where(posts_table.c.id == post_id)
     return await database.fetch_one(query)
+
+async def delete_post(post_id: int):
+    query = posts_table.delete().where(posts_table.c.id == post_id)
+    return await database.execute(query)
 
 async def update_post(post_id: int, post: posts_schema.PostModel):
     query = (

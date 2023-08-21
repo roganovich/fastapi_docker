@@ -4,6 +4,7 @@ typing
 sqlalchemy
 alembic
 pydantic
+python-multipart
 psycopg2
 psycopg2-binary
 databases

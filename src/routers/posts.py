@@ -5,24 +5,26 @@ from fastapi import APIRouter, Depends, HTTPException, status
 router = APIRouter()
 
 
-@router.post("/posts", response_model=PostDetailsModel, status_code=201)
+@router.post("/posts", response_model=PostDetailsModel, status_code=201, tags=["Posts"])
 async def create_post(post: PostModel):
     post = await posts_service.create_post(post)
     return post
 
-@router.get("/posts")
+@router.get("/posts", tags=["Posts"])
 async def get_posts(page: int = 1):
     total_cout = await posts_service.get_posts_count()
     posts = await posts_service.get_posts(page)
     return {"total_count": total_cout, "results": posts}
 
-
-@router.get("/posts/{post_id}", response_model=PostDetailsModel)
+@router.get("/posts/{post_id}", response_model=PostDetailsModel, tags=["Posts"])
 async def get_post(post_id: int):
     return await posts_service.get_post(post_id)
 
+@router.delete("/posts/{post_id}", tags=["Posts"])
+async def get_post(post_id: int):
+    return await posts_service.delete_post(post_id)
 
-@router.put("/posts/{post_id}", response_model=PostDetailsModel)
+@router.put("/posts/{post_id}", response_model=PostDetailsModel, tags=["Posts"])
 async def update_post(
     post_id: int, post_data: PostModel
 ):
