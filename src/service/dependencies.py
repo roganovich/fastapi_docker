@@ -4,7 +4,6 @@ from fastapi.security import OAuth2PasswordBearer
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth")
 
-
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     user = await users_service.get_user_by_token(token)
     if not user:

@@ -1,14 +1,17 @@
 from schemas.posts import PostDetailsModel, PostModel
+from schemas.users import User
+from service.dependencies import get_current_user
 from service import posts as posts_service
 from fastapi import APIRouter, Depends, HTTPException, status
 
 router = APIRouter()
 
-
 @router.post("/posts", response_model=PostDetailsModel, status_code=201, tags=["Posts"])
-async def create_post(post: PostModel):
-    post = await posts_service.create_post(post)
-    return post
+async def create_post(
+    post: PostModel,
+    current_user: User = Depends(get_current_user)
+):
+    return await posts_service.create_post(post, current_user)
 
 @router.get("/posts", tags=["Posts"])
 async def get_posts(page: int = 1):
@@ -26,9 +29,8 @@ async def get_post(post_id: int):
 
 @router.put("/posts/{post_id}", response_model=PostDetailsModel, tags=["Posts"])
 async def update_post(
-    post_id: int, post_data: PostModel
+    post_id: int, post_data: PostModel,
+    current_user: User = Depends(get_current_user)
 ):
-    post = await posts_service.get_post(post_id)
-
-    await posts_service.update_post(post_id=post_id, post=post_data)
+    await posts_service.update_post(post_id=post_id, post=post_data, user=current_user)
     return await posts_service.get_post(post_id)

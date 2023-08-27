@@ -49,7 +49,7 @@ async def create_user(user: users_schema.UsersDetailsModel):
     return {**user.dict(), "id": user_id, "is_active": True, "token": token_dict}
 
 async def get_user_by_token(token: str):
-    query = tokens_table.join(users_table).select().where(
+    query = users_table.join(tokens_table).select().where(
         and_(
             tokens_table.c.token == token,
             tokens_table.c.expires > datetime.now()
