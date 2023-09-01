@@ -1,10 +1,9 @@
 from datetime import datetime
 from sqlalchemy import desc, func, select
-from models.database import database
 
+from models.database import database
 from models.posts import posts_table
 from models.users import users_table
-
 from schemas.posts import PostModel
 from schemas.users import User
 
@@ -37,7 +36,7 @@ async def get_posts(page: int):
             'email': post['user_email'],
             'name': post['user_name']
         }
-        post['created_at'] = datetime.strftime(post['created_at'], "%d.%m.%Y %H:%M")
+        #post['created_at'] = datetime.strftime(post['created_at'], "%d.%m.%Y %H:%M")
 
         del post['user_id']
         del post['user_email']
@@ -89,7 +88,7 @@ async def get_post(post_id: int):
     post = await database.fetch_one(query)
     # Convert to dict and add user_name key to it
     post = dict(zip(post, post.values()))
-    post['created_at'] = datetime.strftime(post['created_at'], "%d.%m.%Y %H:%M")
+    #post['created_at'] = datetime.strftime(post['created_at'], "%d.%m.%Y %H:%M")
     post['user'] = {
         'id': post['user_id'],
         'email': post['user_email'],

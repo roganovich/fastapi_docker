@@ -3,6 +3,7 @@ import random
 import string
 from datetime import datetime, timedelta
 from sqlalchemy import and_
+
 from models.database import database
 from models.users import users_table, tokens_table
 from schemas import users as users_schema

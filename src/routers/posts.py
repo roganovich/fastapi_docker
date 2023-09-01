@@ -1,7 +1,8 @@
-from schemas.posts import PostDetailsModel, PostModel
+from schemas.posts import PostDetailsModel, PostModel, PostList
 from schemas.users import User
 from service.dependencies import get_current_user
 from service import posts as posts_service
+
 from fastapi import APIRouter, Depends, HTTPException, status
 
 router = APIRouter()
@@ -13,7 +14,7 @@ async def create_post(
 ):
     return await posts_service.create_post(post, current_user)
 
-@router.get("/posts", tags=["Posts"])
+@router.get("/posts", response_model=PostList, tags=["Posts"])
 async def get_posts(page: int = 1):
     total_cout = await posts_service.get_posts_count()
     posts = await posts_service.get_posts(page)

@@ -1,6 +1,8 @@
 from fastapi import FastAPI
+
 from models.database import database
 from routers import posts, users
+
 app = FastAPI()
 
 @app.on_event("startup")
