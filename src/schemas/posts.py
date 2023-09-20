@@ -5,7 +5,7 @@ from datetime import datetime
 from schemas.users import UsersDetailsModel
 
 class PostModel(BaseModel):
-    title: str = Field(max_length=5)
+    title: str = Field(max_length=100)
     content: str
 
 class PostDetailsModel(BaseModel):

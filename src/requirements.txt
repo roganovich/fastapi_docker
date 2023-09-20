@@ -5,6 +5,8 @@ sqlalchemy
 alembic
 pydantic
 python-multipart
+email_validator
+python-dotenv
 psycopg2
 psycopg2-binary
 databases

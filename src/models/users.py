@@ -1,35 +1,31 @@
-import sqlalchemy
+
+from sqlalchemy import MetaData, Table, Column, Integer, String, Text, ForeignKey, Boolean, DateTime
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.sql.expression import func
+metadata = MetaData()
 
-metadata = sqlalchemy.MetaData()
-
-users_table = sqlalchemy.Table(
+users_table = Table(
     "users",
     metadata,
-    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
-    sqlalchemy.Column("email", sqlalchemy.String(40), unique=True, index=True),
-    sqlalchemy.Column("name", sqlalchemy.String(100)),
-    sqlalchemy.Column("hashed_password", sqlalchemy.String()),
-    sqlalchemy.Column(
-        "is_active",
-        sqlalchemy.Boolean(),
-        server_default=sqlalchemy.sql.expression.true(),
-        nullable=False,
-    ),
+    Column("id", Integer(), primary_key=True),
+    Column("email", String(40), unique=True, index=True),
+    Column("name", String(100)),
+    Column("hashed_password", String()),
+    Column("is_active", Boolean(), default=True, nullable=False),
 )
 
-tokens_table = sqlalchemy.Table(
+tokens_table = Table(
     "tokens",
     metadata,
-    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
-    sqlalchemy.Column(
+    Column("id", Integer(), primary_key=True),
+    Column(
         "token",
         UUID(as_uuid=False),
-        server_default=sqlalchemy.text("gen_random_uuid()"),
+        server_default=func.gen_random_uuid(),
         unique=True,
         nullable=False,
         index=True,
     ),
-    sqlalchemy.Column("expires", sqlalchemy.DateTime()),
-    sqlalchemy.Column("user_id", sqlalchemy.ForeignKey("users.id")),
+    Column("expires", DateTime()),
+    Column("user_id", ForeignKey(users_table.c.id)),
 )
