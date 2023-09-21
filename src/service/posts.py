@@ -4,6 +4,7 @@ from sqlalchemy import desc, func, select
 from models.database import database
 from models.posts import posts_table
 from models.users import users_table
+from models.categories import categories_table
 from schemas.posts import PostModel
 from schemas.users import User
 
@@ -20,6 +21,10 @@ async def get_posts(page: int):
                 posts_table.c.user_id.label("user_id"),
                 users_table.c.email.label("user_email"),
                 users_table.c.name.label("user_name"),
+                users_table.c.email.label("user_email"),
+                posts_table.c.categories_id.label("categories_id"),
+                categories_table.c.title.label("category_title"),
+                categories_table.c.content.label("category_content"),
             ]
         )
         .select_from(posts_table.join(users_table))
@@ -36,7 +41,13 @@ async def get_posts(page: int):
             'email': post['user_email'],
             'name': post['user_name']
         }
+        post['category'] = {
+            'id': post['categories_id'],
+            'title': post['category_title'],
+            'content': post['category_content']
+        }
         #post['created_at'] = datetime.strftime(post['created_at'], "%d.%m.%Y %H:%M")
+
 
         del post['user_id']
         del post['user_email']
@@ -80,6 +91,9 @@ async def get_post(post_id: int):
                 posts_table.c.user_id.label("user_id"),
                 users_table.c.email.label("user_email"),
                 users_table.c.name.label("user_name"),
+                posts_table.c.categories_id.label("categories_id"),
+                categories_table.c.title.label("category_title"),
+                categories_table.c.content.label("category_content"),
             ]
         )
         .select_from(posts_table.join(users_table))
@@ -93,6 +107,11 @@ async def get_post(post_id: int):
         'id': post['user_id'],
         'email': post['user_email'],
         'name': post['user_name']
+    }
+    post['category'] = {
+        'id': post['categories_id'],
+        'title': post['category_title'],
+        'content': post['category_content']
     }
     return post
 
