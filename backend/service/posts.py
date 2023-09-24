@@ -27,7 +27,7 @@ async def get_posts(page: int):
                 categories_table.c.content.label("category_content"),
             ]
         )
-        .select_from(posts_table.join(users_table))
+        .select_from(posts_table.join(users_table).join(categories_table))
         .order_by(desc(posts_table.c.created_at))
         .limit(max_per_page)
         .offset(offset1)
