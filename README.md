@@ -24,3 +24,7 @@ uvicorn main:app --reload --host=127.0.0.1 --port=8081 --env-file ../.env
 alembic revision --autogenerate -m "Added required tables"
 alembic upgrade head
 ```
+# Frontend
+```bash
+yarn create vite
+```

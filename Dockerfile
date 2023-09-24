@@ -5,7 +5,7 @@ FROM python:3-alpine
 WORKDIR /usr/src
 
 # copy requirements file
-COPY /src/requirements.txt /usr/src/requirements.txt
+COPY /backend/requirements.txt /usr/src/requirements.txt
 
 # install dependencies
 RUN set -eux \
