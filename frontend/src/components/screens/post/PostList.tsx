@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from 'react-query'
 
 import styles from './Post.module.scss'
 import Post from './Post'
+import PostCreateForm from '../postCreate/PostCreateForm'
 import PostService from '../../../data/PostService'
 import PostItem from '../../../entity/post/Post'
 
@@ -11,46 +12,40 @@ const fortmatResponse = (res: any) => {
 };
 
 function PostList() {
-  const [getPostResult, setPostResult] = useState([]);
-
+  const [posts, setPosts] = useState([]);
 
   const { isLoading: isLoadingTutorials, refetch: getAllPosts } = useQuery<PostItem[], Error>(
-    "query-tutorials",
+    "repoData",
     async () => {
       return await PostService.findAll();
     },
     {
       enabled: false,
       onSuccess: (res) => {
-        setPostResult(fortmatResponse(res));
+        setPosts(fortmatResponse(res));
       },
       onError: (err: any) => {
-        setPostResult(err.response?.data || err);
+        setPosts(err.response?.data || err);
       },
     }
   );
 
-  function getAllData() {
-    try {
-      getAllPosts();
-      console.log('getPostResult', getPostResult);
-    } catch (err) {
-      setPostResult(err);
-    }
-  }
+  useEffect(() => {
+    getAllPosts()
+  }, [])
 
   return (
     <>
-      <div>
+      <div className={styles.list}>
+        <PostCreateForm setPosts={setPosts} />
         <h2>Post List</h2>
-        <button className="btn btn-sm btn-primary" onClick={getAllData}>
-          Posts
-        </button>
-        <div className={styles.list}>
+        <div className="row">
           {
-            getPostResult.map(post =>
-              <Post key={post.id} post={post} />
-              )}
+            posts.map(post =>
+              <div className="col" key={post.id}>
+                <Post post={post} />
+              </div>
+            )}
         </div>
       </div>
     </>

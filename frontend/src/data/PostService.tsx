@@ -18,9 +18,20 @@ const findById = async (id: any) => {
   return response.data;
 }
 
+const create = async (title: any, content: any) => {
+  const token = '85e56baf-0de9-4001-8720-c8ebcb0d0ed9';
+  const headers = {
+    'Authorization': 'Bearer ' + token
+  };
+  const body = { title: title, content: content };
+  const response = await apiClient.post(`/posts/`, body, { headers });
+  return response.data;
+}
+
 const PostService = {
   findAll,
-  findById
+  findById,
+  create
 }
 
 export default PostService;

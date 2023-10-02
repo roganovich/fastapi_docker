@@ -67,6 +67,7 @@ async def create_post(
             created_at=datetime.now(),
             title=post.title,
             content=post.content,
+            categories_id=1,
             user_id=user["id"]
         )
         .returning(

@@ -7,7 +7,7 @@ services:
     restart: always
     volumes:
       - ./backend/:/usr/src/
-    container_name: myapi_app
+    container_name: myapi_backend
     environment:
       PYTHONDONTWRITEBYTECODE: 1
       PYTHONUNBUFFERED: 1
@@ -26,6 +26,7 @@ services:
       - etl_network
   database:
     image: postgres
+    container_name: myapi_db
     environment:
       POSTGRES_DB: "${POSTGRES_DB}"
       POSTGRES_HOST: "${POSTGRES_HOST}"

@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import 'bootstrap/scss/bootstrap.scss'
+
 import Home from './components/screens/home/Home'
 import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
