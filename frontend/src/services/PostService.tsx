@@ -1,5 +1,5 @@
 import axios from "axios";
-import PostItem from "../entity/post/Post.jsx";
+import PostItem from "../entity/post/Post.js";
 
 const apiClient = axios.create({
   baseURL: "http://127.0.0.1:8081/",
@@ -19,7 +19,11 @@ const findById = async (id: any) => {
 }
 
 const deleteById = async (id: any) => {
-  const response = await apiClient.delete<PostItem>(`/posts/${id}`);
+  const token = '85e56baf-0de9-4001-8720-c8ebcb0d0ed9';
+  const headers = {
+    'Authorization': 'Bearer ' + token
+  };
+  const response = await apiClient.delete<PostItem>(`/posts/${id}`, {headers});
   return response.data;
 }
 

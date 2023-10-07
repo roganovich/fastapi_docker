@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import PostService from '../../../data/PostService'
+import PostService from '../../../services/PostService'
 import PostItem from '../../../entity/post/Post'
 
 const clearForm = {
