@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from 'react-query'
 
 import styles from './Post.module.scss'
 import Post from './Post'
@@ -14,21 +13,10 @@ const fortmatResponse = (res: any) => {
 function PostList() {
   const [posts, setPosts] = useState([]);
 
-  const { isLoading: isLoadingTutorials, refetch: getAllPosts } = useQuery<PostItem[], Error>(
-    "repoData",
-    async () => {
-      return await PostService.findAll();
-    },
-    {
-      enabled: false,
-      onSuccess: (res) => {
-        setPosts(fortmatResponse(res));
-      },
-      onError: (err: any) => {
-        setPosts(err.response?.data || err);
-      },
-    }
-  );
+  const getAllPosts = async () => {
+    const res = await PostService.findAll();
+    setPosts(fortmatResponse(res));
+  }
 
   useEffect(() => {
     getAllPosts()
@@ -43,7 +31,7 @@ function PostList() {
           {
             posts.map(post =>
               <div className="col" key={post.id}>
-                <Post post={post} />
+                <Post post={post} setPosts={setPosts} />
               </div>
             )}
         </div>

@@ -1,34 +1,24 @@
 import React, { useState, useEffect } from "react"
-import { useQuery } from 'react-query'
 import PostService from '../../../data/PostService'
 import PostItem from '../../../entity/post/Post'
 
+const clearForm = {
+    title: '',
+    content: ''
+}
+
 const PostCreateForm = ({ setPosts }) => {
-    const [getTitle, setTitle] = useState('')
-    const [getContent, setContent] = useState('')
+    const [formData, setFormData] = useState(clearForm)
 
-
-    const { isLoading: isLoadingTutorials, refetch: sendPostData } = useQuery<PostItem, Error>(
-        "query-tutorials",
-        async () => {
-            return await PostService.create(getTitle, getContent);
-        },
-        {
-            enabled: false,
-            onSuccess: (res) => {
-                const post = res
-                console.log('Post', post)
-                setPosts(prev => [...prev, post])
-            },
-            onError: (err: any) => {
-                //setPosts(err.response?.data || err);
-            },
-        }
-    );
+    const sendPostData = async () => {
+        const response = await PostService.create(formData);
+        setPosts(prev => [...prev, response])
+    }
 
     function createPost(e: any) {
         e.preventDefault()
         sendPostData()
+        setFormData(clearForm)
     }
 
     return (<>
@@ -41,8 +31,10 @@ const PostCreateForm = ({ setPosts }) => {
                         <input type="text"
                             className="form-control"
                             name="title"
-                            onChange={e => setTitle(e.target.value)}
-                            value={getTitle}
+                            onChange={e => setFormData(prev => ({
+                                ...prev, title: e.target.value
+                            }))}
+                            value={formData.title}
                         />
                         <div className="form-text">Title</div>
                     </div>
@@ -52,7 +44,10 @@ const PostCreateForm = ({ setPosts }) => {
                             className="form-control"
                             name="content"
                             rows={4}
-                            onChange={e => setContent(e.target.value)}
+                            onChange={e => setFormData(prev => ({
+                                ...prev, content: e.target.value
+                            }))}
+                            value={formData.content}
                         />
                     </div>
                     <button

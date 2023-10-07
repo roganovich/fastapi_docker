@@ -14,7 +14,7 @@ pip install -r requirements.txt
 alembic revision -m "create table"
 ```
 
-## Запуск локального сервера
+## Запуск локального сервера cd /backend
 ```bash
 uvicorn main:app --reload --host=127.0.0.1 --port=8081 --env-file ../.env
 ```
@@ -24,7 +24,7 @@ uvicorn main:app --reload --host=127.0.0.1 --port=8081 --env-file ../.env
 alembic revision --autogenerate -m "Added required tables"
 alembic upgrade head
 ```
-# Frontend
+# Frontend cd /frontend
 ```bash
 yarn create vite
 ```

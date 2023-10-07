@@ -18,19 +18,24 @@ const findById = async (id: any) => {
   return response.data;
 }
 
-const create = async (title: any, content: any) => {
+const deleteById = async (id: any) => {
+  const response = await apiClient.delete<PostItem>(`/posts/${id}`);
+  return response.data;
+}
+
+const create = async (formData: any) => {
   const token = '85e56baf-0de9-4001-8720-c8ebcb0d0ed9';
   const headers = {
     'Authorization': 'Bearer ' + token
   };
-  const body = { title: title, content: content };
-  const response = await apiClient.post(`/posts/`, body, { headers });
+  const response = await apiClient.post(`/posts/`, formData, { headers });
   return response.data;
 }
 
 const PostService = {
   findAll,
   findById,
+  deleteById,
   create
 }
 
