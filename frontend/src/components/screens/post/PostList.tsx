@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-
 import styles from './Post.module.scss'
 import Post from './Post'
-import PostCreateForm from '../postCreate/PostCreateForm'
+import PostCreateForm from './PostCreateForm'
 import PostService from '../../../services/PostService'
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const fortmatResponse = (res: any) => {
   return res.results.sort((a, b) => a.id - b.id)
@@ -15,7 +14,6 @@ function PostList() {
   const nav = useNavigate()
 
   const deletePostData = async (post) => {
-    
     await PostService.deleteById(post.id)
     setPosts(oldValues => {
       return oldValues.filter(function (item) {
