@@ -21,8 +21,7 @@ function PostDetail() {
     }, [id])
 
     function back(e: any) {
-        nav('/')
-        //<Link className="btn btn-primary" to={`/post/${post.id}`}>{`Открыть #${post.id}`}</Link>
+        nav('/posts')
     }
 
     return (

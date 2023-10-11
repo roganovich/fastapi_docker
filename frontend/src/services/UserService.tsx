@@ -19,9 +19,13 @@ const getToken = async (formData: any) => {
 }
 
 const getUser = async (auth: AuthItem) => {
+    if (typeof auth?.token === 'undefined') {
+        return
+    }
     const headers = {
         'Authorization': 'Bearer ' + auth.token
     }
+    console.log('Authorization', headers);
     const response = await apiClient.get(`/users/me`, { headers })
     return response.data
 }
