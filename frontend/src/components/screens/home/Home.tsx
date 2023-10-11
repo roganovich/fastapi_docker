@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { useNavigate } from "react-router-dom";
 import PostList from '../post/PostList'
 import { AuthContext } from '../../../providers/AuthProvider'
+import MainLayout from '../../layouts/main';
 
 import styles from './Home.module.scss'
 
@@ -19,23 +20,25 @@ function App() {
 
   return (
     <>
-      <div className="container-fluid">
-        <div className={styles.header}>
-          <h1>Frontend</h1>
-          {
-            auth?.token ?
-              (<>
-                <h2>Welcome {user.name}</h2>
-                <button type="button" onClick={e => toLogout(e)} className="btn btn-danger">Выйти</button>
-              </>)
-              :
-              (<>
-                <button type="button" onClick={e => toLogin(e)} className="btn btn-primary">Войти</button>
-              </>)
-          }
-          <PostList />
+      <MainLayout>
+        <div className="container-fluid">
+          <div className={styles.header}>
+            <h1>Frontend</h1>
+            {
+              auth?.token ?
+                (<>
+                  <h2>Welcome {user.name}</h2>
+                  <button type="button" onClick={e => toLogout(e)} className="btn btn-danger">Выйти</button>
+                </>)
+                :
+                (<>
+                  <button type="button" onClick={e => toLogin(e)} className="btn btn-primary">Войти</button>
+                </>)
+            }
+            <PostList />
+          </div>
         </div>
-      </div>
+      </MainLayout>
     </>
   )
 }
