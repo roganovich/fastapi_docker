@@ -19,7 +19,6 @@ function App() {
   return (
     <>
       <MainLayout>
-        <div className="container-fluid">
           <div className={styles.header}>
             <h1>Frontend</h1>
             {
@@ -34,7 +33,6 @@ function App() {
                 </>)
             }
           </div>
-        </div>
       </MainLayout>
     </>
   )

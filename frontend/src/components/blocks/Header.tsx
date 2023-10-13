@@ -40,12 +40,12 @@ const HeaderBlock = () => {
                                         ? 
                                         <>
                                         <li className="nav-item">
-                                            <Link className="d-flex align-items-center hidden-arrow" to="/" >
+                                            <Link className="d-flex align-items-center hidden-arrow" to="/profile" >
                                                 <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" className="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy" />
                                             </Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to='/'>{user?.name}</Link>
+                                            <Link className="nav-link" to='/profile'>{user?.name}</Link>
                                         </li>
                                         <li className="nav-item">
                                             <Link className="nav-link" to='/logout'>Log Out</Link>

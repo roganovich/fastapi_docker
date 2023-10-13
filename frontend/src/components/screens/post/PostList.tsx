@@ -12,6 +12,13 @@ function PostList() {
 
   const nav = useNavigate()
 
+
+  const getPosts = async () => {
+    const postsResponse = await PostService.findAll()
+    console.log('postsResponse', postsResponse)
+    setPosts(postsResponse.results.sort((a, b) => a.id - b.id))
+  }
+
   const deletePostData = async (post) => {
     await PostService.deleteById(post.id)
     setPosts(oldValues => {
@@ -31,6 +38,10 @@ function PostList() {
     nav(`/posts/${post.id}`)
   }
 
+  useEffect(() => {
+    getPosts()
+  }, [])
+
   return (
     <>
       <MainLayout>
@@ -39,15 +50,15 @@ function PostList() {
           <div className="row">
             {
               posts.length ?
-              posts.map(post =>
-                <div className="col" key={post.id}>
-                  <Post post={post} />
-                  <div className="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" onClick={e => openPost(e, post)} className="btn btn-primary">Open</button>
-                    <button type="button" onClick={e => deletePost(e, post)} className="btn btn-danger">Delete</button>
+                posts.map(post =>
+                  <div className="col-3" key={post.id}>
+                    <Post post={post} />
+                    <div className="btn-group" role="group" aria-label="Basic example">
+                      <button type="button" onClick={e => openPost(e, post)} className="btn btn-primary">Open</button>
+                      <button type="button" onClick={e => deletePost(e, post)} className="btn btn-danger">Delete</button>
+                    </div>
                   </div>
-                </div>
-              ) : <div>No Posts</div>}
+                ) : <div>No Posts</div>}
           </div>
         </div>
       </MainLayout>

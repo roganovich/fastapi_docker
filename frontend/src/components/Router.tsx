@@ -2,7 +2,7 @@ import {
     BrowserRouter,
     Routes,
     Route
-} from "react-router-dom";
+} from "react-router-dom"
 import { useContext, useEffect } from "react"
 
 import Home from '../components/screens/home/Home'
@@ -13,11 +13,10 @@ import UserService from '../services/UserService'
 import PostCreateForm from "./screens/post/PostCreateForm"
 import PostList from "./screens/post/PostList"
 import PostDetail from '../components/screens/post/PostDetail'
-import PostService from "../services/PostService";
+import Profile from "./screens/user/Profile"
 
 const Router = () => {
-    const { auth, setAuth, setUser, setPosts } = useContext(AuthContext)
-
+    const { auth, setAuth, setUser } = useContext(AuthContext)
 
     function getAuth() {
         const stored = sessionStorage.getItem('auth')
@@ -34,16 +33,10 @@ const Router = () => {
         setUser(userResponse)
     }
 
-    const getPosts = async () => {
-        const postsResponse = await PostService.findAll()
-        console.log('postsResponse', postsResponse)
-        setPosts(postsResponse.results.sort((a, b) => a.id - b.id))
-    }
 
     useEffect(() => {
         if (auth?.token){
             getUser()
-            getPosts()
         }
     }, [auth])
 
@@ -57,9 +50,10 @@ const Router = () => {
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/login" element={<LoginForm />}></Route>
                 <Route path="/logout" element={<Logout />}></Route>
+                <Route path="/profile" element={<Profile />}></Route>
                 <Route path="/posts/" element={<PostList />}></Route>
                 <Route path="/posts/:id" element={<PostDetail />}></Route>
-                <Route path="/posts/new" element={<PostCreateForm setPosts={setPosts} />}></Route>
+                <Route path="/posts/new" element={<PostCreateForm />}></Route>
                 <Route path="*" element={<div>404 Post Not Found</div>}></Route>
             </Routes>
         </BrowserRouter>

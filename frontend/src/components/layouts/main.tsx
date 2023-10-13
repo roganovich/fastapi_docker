@@ -4,8 +4,10 @@ import FooterBlock from "../blocks/Footer"
 const MainLayout = ({children}) => {
     return (
         <>
-        <HeaderBlock />
-        {children}
+        <HeaderBlock />   
+        <div className="container-fluid">
+            {children}
+        </div>
         <FooterBlock />
         </>
     )

@@ -1,16 +1,25 @@
-import { useState } from "react"
+import { useState, useContext, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { AuthContext } from "../../../providers/AuthProvider"
 import PostService from '../../../services/PostService'
 import MainLayout from "../../layouts/main"
-import { useNavigate } from "react-router-dom"
 
 const clearForm = {
     title: '',
     content: ''
 }
 
-const PostCreateForm = ({ setPosts }) => {
+const PostCreateForm = () => {
+    const { posts, setPosts } = useContext(AuthContext)
+
     const [formData, setFormData] = useState(clearForm)
     const nav = useNavigate()
+
+    const getPosts = async () => {
+        const postsResponse = await PostService.findAll()
+        console.log('postsResponse', postsResponse)
+        setPosts(postsResponse.results.sort((a, b) => a.id - b.id))
+    }
 
     const sendPostData = async () => {
         const response = await PostService.create(formData);
@@ -23,9 +32,15 @@ const PostCreateForm = ({ setPosts }) => {
         sendPostData()
         setFormData(clearForm)
     }
+
     function openPost(post: Post) {
         nav(`/posts/${post.id}`)
     }
+
+
+    useEffect(() => {
+        getPosts()
+    }, [])
 
     return (
         <>
