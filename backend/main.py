@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from models.database import database
-from routers import posts, users, categories
+from routers import posts, users, categories, bot
 
 templates = Jinja2Templates(directory="templates")
 
@@ -39,3 +39,4 @@ async def root(request: Request):
 app.include_router(users.router)
 app.include_router(posts.router)
 app.include_router(categories.router)
+app.include_router(bot.router)
