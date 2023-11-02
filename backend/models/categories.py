@@ -1,4 +1,5 @@
 from sqlalchemy import MetaData, Table, Column, Integer, String, Text, ForeignKey
+
 metadata = MetaData()
 
 categories_table = Table(

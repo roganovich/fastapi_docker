@@ -2,6 +2,7 @@
 from sqlalchemy import MetaData, Table, Column, Integer, String, Text, ForeignKey, Boolean, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql.expression import func
+
 metadata = MetaData()
 
 users_table = Table(

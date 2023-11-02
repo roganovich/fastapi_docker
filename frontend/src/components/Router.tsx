@@ -14,6 +14,7 @@ import PostCreateForm from "./screens/post/PostCreateForm"
 import PostList from "./screens/post/PostList"
 import PostDetail from '../components/screens/post/PostDetail'
 import Profile from "./screens/user/Profile"
+import GameTable from "./screens/games/GameTable"
 
 const Router = () => {
     const { auth, setAuth, setUser } = useContext(AuthContext)
@@ -54,6 +55,7 @@ const Router = () => {
                 <Route path="/posts/" element={<PostList />}></Route>
                 <Route path="/posts/:id" element={<PostDetail />}></Route>
                 <Route path="/posts/new" element={<PostCreateForm />}></Route>
+                <Route path="/games/table" element={<GameTable />}></Route>
                 <Route path="*" element={<div>404 Post Not Found</div>}></Route>
             </Routes>
         </BrowserRouter>

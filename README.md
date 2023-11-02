@@ -11,8 +11,13 @@ pip install -r requirements.txt
 ```
 ## Создание миграции
 ```bash
-alembic revision -m "create table"
+alembic revision -m "bot_users_messages"
 ```
+## Выволняем миграции
+```bash
+alembic upgrade head
+```
+
 
 ## Запуск локального сервера cd /backend
 ```bash

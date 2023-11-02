@@ -1,6 +1,7 @@
 from sqlalchemy import MetaData, Table, Column, Integer, String, Text, ForeignKey, DateTime
 from models.users import users_table
 from models.categories import categories_table
+
 metadata = MetaData()
 
 posts_table = Table(

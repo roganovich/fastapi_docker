@@ -26,6 +26,9 @@ const HeaderBlock = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" to='/posts/new'>Add Posts</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to='/games/table'>Game</Link>
+                            </li>
                         </ul>
 
                         <div className="d-flex align-items-center justify-content-start">

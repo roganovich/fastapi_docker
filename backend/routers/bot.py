@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from os import environ
 from values.bot import command
+from service import bot_users as bot_users_service
+from service import bot_users_messages as bot_users_messages_service
 import telebot
 
 router = APIRouter()
@@ -9,7 +11,16 @@ bot = telebot.TeleBot(environ['BOT_TOKEN'], parse_mode=None)
 @bot.message_handler(commands=['start'])
 def send_start(message):
     user = message.from_user
-    text =  "Приве, " + user.first_name + ". Я, Домовёнок, твой домашний помощник"
+    bot_user = bot_users_service.get_bot_user(user.id)
+    if bot_user is None:
+        bot_user = bot_users_service.create_bot_user(user.id,
+                                              user.username,
+                                              user.first_name,
+                                              user.last_name,
+                                              user.language_code)
+    print(bot_user)
+    exit()
+    text =  "Приве, " + user.first_name + "[" + bot_user.id + "]" + ". Я, Домовёнок, твой домашний помощник"
     bot.reply_to(message, text)
 
 @bot.message_handler(commands=['chatid'])

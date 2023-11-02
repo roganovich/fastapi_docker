@@ -2,17 +2,18 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
 from os import environ
-from models import categories, posts, users
+from models import categories, posts, users, bot_users, bot_messages_scenarios, bot_users_messages
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 section = config.config_ini_section
 
-config.set_section_option(section, "POSTGRES_USER", environ.get("POSTGRES_USER"))
-config.set_section_option(section, "POSTGRES_PASSWORD", environ.get("POSTGRES_PASSWORD"))
-config.set_section_option(section, "POSTGRES_DB", environ.get("POSTGRES_DB"))
-config.set_section_option(section, "POSTGRES_HOST", environ.get("POSTGRES_HOST"))
+config.set_section_option(section, "POSTGRES_USER", environ.get("POSTGRES_USER", "myapi_admin"))
+config.set_section_option(section, "POSTGRES_PASSWORD", environ.get("POSTGRES_PASSWORD", "myapi_pass"))
+config.set_section_option(section, "POSTGRES_DB", environ.get("POSTGRES_DB", "myapi_db"))
+config.set_section_option(section, "POSTGRES_HOST", environ.get("POSTGRES_HOST", "127.0.0.1"))
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -23,7 +24,14 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = [users.metadata, categories.metadata, posts.metadata, ]
+target_metadata = [
+    users.metadata,
+    categories.metadata,
+    posts.metadata,
+    bot_users.metadata,
+    bot_messages_scenarios.metadata,
+    bot_users_messages.metadata
+ ]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
