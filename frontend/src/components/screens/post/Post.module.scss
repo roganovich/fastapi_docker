@@ -1,5 +1,6 @@
+.post_list{}
 
-.post{
+.post_item{
     margin: 5px;
     padding: 5px;
     width: 300px;
@@ -11,10 +12,8 @@
             width: 100%;
         }
     }
+    .title {}
+    .description {}
+
+    .btn {}
 }
-
-.title {}
-
-.description {}
-
-.btn {}

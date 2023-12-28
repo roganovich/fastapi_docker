@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import {useState, useContext, useEffect} from "react"
+import {useNavigate} from "react-router-dom"
 import UserService from '../../../services/UserService'
-import { AuthContext } from '../../../providers/AuthProvider'
+import {AuthContext, UserContext} from '../../../providers/AuthProvider'
 import MainLayout from "../../layouts/main"
 
 const clearForm = {
@@ -11,7 +11,8 @@ const clearForm = {
 
 const LoginForm = () => {
     const [formData, setFormData] = useState(clearForm)
-    const { auth, setAuth, user, setUser } = useContext(AuthContext)
+    const {auth, setAuth} = useContext(AuthContext)
+    const {user, setUser} = useContext(UserContext)
     const nav = useNavigate()
 
     const sendLoginData = async () => {
@@ -26,12 +27,12 @@ const LoginForm = () => {
         console.log('userResponse', userResponse);
         setUser(userResponse)
         const stored = sessionStorage.getItem('auth');
-        console.log(stored);
+        console.log(stored, 'user', user);
         nav('/profile')
     }
 
 
-    function login(e: any) {
+    function login(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault()
         sendLoginData()
     }
@@ -53,31 +54,32 @@ const LoginForm = () => {
                             <div className="mb-3">
                                 <label className="form-label">Login</label>
                                 <input type="text"
-                                    className="form-control"
-                                    name="username"
-                                    onChange={e => setFormData(prev => ({
-                                        ...prev, username: e.target.value
-                                    }))}
-                                    value={formData?.username}
+                                       className="form-control"
+                                       name="username"
+                                       onChange={e => setFormData(prev => ({
+                                           ...prev, username: e.target.value
+                                       }))}
+                                       value={formData?.username}
                                 />
                                 <div className="form-text">Login</div>
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Password</label>
                                 <input type="password"
-                                    className="form-control"
-                                    name="password"
-                                    onChange={e => setFormData(prev => ({
-                                        ...prev, password: e.target.value
-                                    }))}
-                                    value={formData?.password}
+                                       className="form-control"
+                                       name="password"
+                                       onChange={e => setFormData(prev => ({
+                                           ...prev, password: e.target.value
+                                       }))}
+                                       value={formData?.password}
                                 />
                             </div>
                             <button
                                 type="submit"
                                 className="btn btn-primary"
                                 onClick={e => login(e)}
-                            >Create</button>
+                            >Create
+                            </button>
                         </form>
                     </div>
                     <div className="col"></div>

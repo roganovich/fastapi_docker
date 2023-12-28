@@ -1,20 +1,20 @@
-
-import { useContext } from "react"
-import { AuthContext } from '../../../providers/AuthProvider'
+import {useContext} from "react"
+import {UserContext} from '../../../providers/AuthProvider'
 import MainLayout from '../../layouts/main'
 
 const Profile = () => {
-    const { user, setUser } = useContext(AuthContext)
+    const {user} = useContext(UserContext)
 
     return (
         <>
-        <MainLayout>
-            <div className="card" style={
+            <MainLayout>
+                <div className="card" style={
                     {
                         width: '18rem'
                     }
                 }>
-                    <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" className="card-img-top" alt="{post.title}" />
+                    <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" className="card-img-top"
+                         alt="{post.title}"/>
                     <div className="card-body">
                         <h5 className="card-title">#{user.id}</h5>
                         <ul className="list-group list-group-flush">
@@ -23,7 +23,7 @@ const Profile = () => {
                         </ul>
                     </div>
                 </div>
-        </MainLayout>
+            </MainLayout>
         </>
     )
 }

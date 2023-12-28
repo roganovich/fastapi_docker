@@ -19,18 +19,18 @@ const findById = async (id: any) => {
 }
 
 const deleteById = async (id: any) => {
-  const token = '85e56baf-0de9-4001-8720-c8ebcb0d0ed9'
+  const storedDate = JSON.parse(sessionStorage.getItem('auth'))
   const headers = {
-    'Authorization': 'Bearer ' + token
+    'Authorization': 'Bearer ' + storedDate.token
   }
-  const response = await apiClient.delete<PostItem>(`/posts/${id}`, {headers})
+  const response = await apiClient.delete<PostItem>(`/posts/${id}`, { headers })
   return response.data
 }
 
 const create = async (formData: any) => {
-  const token = '85e56baf-0de9-4001-8720-c8ebcb0d0ed9'
+  const storedDate = JSON.parse(sessionStorage.getItem('auth'))
   const headers = {
-    'Authorization': 'Bearer ' + token
+    'Authorization': 'Bearer ' + storedDate.token
   }
   const response = await apiClient.post(`/posts/`, formData, { headers })
   return response.data

@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useContext } from "react"
-import styles from './Post.module.scss'
+import {useEffect, useState} from "react"
+import './Post.module.scss'
 import Post from './Post'
 import PostService from '../../../services/PostService'
 import MainLayout from "../../layouts/main"
-import { AuthContext } from "../../../providers/AuthProvider"
 import { useNavigate } from "react-router-dom"
+import PostItem from "../../../entity/post/Post.tsx";
 
+const defaultPost = {'id': null, 'created_at': new Date(), 'title':'','content':''}
 
 function PostList() {
-  const { posts, setPosts } = useContext(AuthContext)
-
+  const [posts, setPosts] = useState<PostItem[]>([defaultPost])
   const nav = useNavigate()
-
 
   const getPosts = async () => {
     const postsResponse = await PostService.findAll()
@@ -28,13 +27,13 @@ function PostList() {
     })
   }
 
-  function deletePost(e: any, post: Post) {
+  function deletePost(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, post: PostItem) {
     e.preventDefault()
     console.log('Delete ' + post.id)
     deletePostData(post)
   }
 
-  function openPost(e: any, post: Post) {
+  function openPost(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, post: PostItem) {
     nav(`/posts/${post.id}`)
   }
 
@@ -45,7 +44,7 @@ function PostList() {
   return (
     <>
       <MainLayout>
-        <div className={styles.list}>
+        <div className="post_list">
           <h2>Post List</h2>
           <div className="row">
             {

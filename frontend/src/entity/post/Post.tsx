@@ -1,5 +1,5 @@
 export default interface PostItem {
-    id?: any | null,
+    id?: null,
     created_at: Date,
     title: string,
     content?: string,

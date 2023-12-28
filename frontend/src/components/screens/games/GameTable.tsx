@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react"
+import {useState} from "react"
+import MainLayout from "../../layouts/main"
 import Table from './Table'
 
 const defaultTable = {
@@ -16,28 +17,33 @@ const defaultTable = {
 const GameTable = () => {
     const [table, setTable] = useState(defaultTable)
 
-    function restart(e: any) {
+    function restart(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault()
-        console.log('defaultTable', defaultTable)
+        console.log('restart', defaultTable)
         setTable(defaultTable)
     }
 
     return (
-        <div className="p-3">
-            <div className="p-1">
-                Крестики - нолики
-            </div>
-            <div>
-                <Table table={table} setTable={setTable}/>
-            </div>
-            <div>
-                <button
-                    type="submit"
-                    className="btn btn-primary"
-                    onClick={e => restart(e)}
-                >Restart</button>
-            </div>
-        </div>
+        <>
+            <MainLayout>
+                <div className="p-3">
+                    <div className="p-1">
+                        Крестики - нолики
+                    </div>
+                    <div>
+                        <Table table={table} setTable={setTable}/>
+                    </div>
+                    <div>
+                        <button
+                            type="submit"
+                            className="btn btn-primary"
+                            onClick={e => restart(e)}
+                        >Restart
+                        </button>
+                    </div>
+                </div>
+            </MainLayout>
+        </>
     )
 }
 

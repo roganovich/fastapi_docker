@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ```
 ## Создание миграции
 ```bash
-alembic revision -m "bot_users_messages"
+alembic revision -m "add operations tables"
 ```
 ## Выволняем миграции
 ```bash
@@ -31,5 +31,5 @@ alembic upgrade head
 ```
 # Frontend cd /frontend
 ```bash
-yarn create vite
+yarn dev
 ```

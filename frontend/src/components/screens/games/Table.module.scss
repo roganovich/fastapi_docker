@@ -1,0 +1,19 @@
+.fitBox {
+    width: fit-content;
+}
+.stylesBox {
+    width: 5rem;
+    height: 5rem;
+    display: inline-block;
+    background-color: white;
+    border: 1px solid gray;
+}
+
+.cross{
+    background-image: url('/images/cross.png');
+    background-size: contain;
+}
+.circle{
+    background-image: url('/images/circle.png');
+    background-size: contain;
+}

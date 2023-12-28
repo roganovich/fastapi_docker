@@ -2,7 +2,6 @@ from schemas.posts import PostDetailsModel, PostModel, PostList
 from schemas.users import User
 from service.dependencies import get_current_user
 from service import posts as posts_service
-
 from fastapi import APIRouter, Depends, HTTPException, status
 
 router = APIRouter()

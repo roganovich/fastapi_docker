@@ -3,14 +3,17 @@ import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../../../providers/AuthProvider"
 import PostService from '../../../services/PostService'
 import MainLayout from "../../layouts/main"
+import PostItem from "../../../entity/post/Post.tsx";
 
 const clearForm = {
     title: '',
     content: ''
 }
 
+const defaultPost = {'id': null, 'created_at': new Date(), 'title':'','content':''}
+
 const PostCreateForm = () => {
-    const { posts, setPosts } = useContext(AuthContext)
+    const [posts, setPosts] = useState<PostItem[]>([defaultPost])
 
     const [formData, setFormData] = useState(clearForm)
     const nav = useNavigate()
@@ -27,13 +30,13 @@ const PostCreateForm = () => {
         openPost(response)
     }
 
-    function createPost(e: any) {
+    function createPost(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault()
         sendPostData()
         setFormData(clearForm)
     }
 
-    function openPost(post: Post) {
+    function openPost(post: PostItem) {
         nav(`/posts/${post.id}`)
     }
 

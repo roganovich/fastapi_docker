@@ -1,14 +1,13 @@
-import React, { useState, useContext, useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { AuthContext } from '../../../providers/AuthProvider'
+import { AuthContext, UserContext } from '../../../providers/AuthProvider'
 
 const Logout = () => {
-    const { auth, setAuth, user, setUser } = useContext(AuthContext)
+    const  {auth}  = useContext(AuthContext)
+    const  {user}  = useContext(UserContext)
 
     const sendLogout = async () => {
         console.log('Logout ' + user?.name)
-        setUser(null)
-        setAuth(null)
         sessionStorage.removeItem('auth')
     }
 

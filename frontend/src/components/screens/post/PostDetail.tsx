@@ -20,7 +20,7 @@ function PostDetail() {
         getPosts()
     }, [id])
 
-    function back(e: any) {
+    function back(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         nav('/posts')
     }
 

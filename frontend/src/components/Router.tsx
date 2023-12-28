@@ -8,7 +8,7 @@ import { useContext, useEffect } from "react"
 import Home from '../components/screens/home/Home'
 import LoginForm from './screens/user/LoginFrom'
 import Logout from "./screens/user/Logout"
-import { AuthContext } from '../providers/AuthProvider'
+import { AuthContext, UserContext } from '../providers/AuthProvider'
 import UserService from '../services/UserService'
 import PostCreateForm from "./screens/post/PostCreateForm"
 import PostList from "./screens/post/PostList"
@@ -17,7 +17,8 @@ import Profile from "./screens/user/Profile"
 import GameTable from "./screens/games/GameTable"
 
 const Router = () => {
-    const { auth, setAuth, setUser } = useContext(AuthContext)
+    const { auth, setAuth } = useContext(AuthContext)
+    const { user, setUser } = useContext(UserContext)
 
     function getAuth() {
         const stored = sessionStorage.getItem('auth')
@@ -32,6 +33,7 @@ const Router = () => {
         const userResponse = await UserService.getUser(auth)
         console.log('userResponse', userResponse)
         setUser(userResponse)
+        console.log('user', user)
     }
 
 

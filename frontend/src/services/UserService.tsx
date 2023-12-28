@@ -1,5 +1,4 @@
 import axios from "axios"
-import User from '../entity/user/User'
 import AuthItem from '../entity/user/Auth'
 
 const apiClient = axios.create({
